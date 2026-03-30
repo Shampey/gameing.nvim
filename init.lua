@@ -84,21 +84,25 @@ vim.o.confirm = true
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Diagnostic Config & Keymaps
--- See :help vim.diagnostic.Opts
-vim.diagnostic.config {
-  update_in_insert = false,
-  severity_sort = true,
-  float = { border = 'rounded', source = 'if_many' },
-  underline = { severity = { min = vim.diagnostic.severity.WARN } },
-
-  -- Can switch between these as you prefer
-  virtual_text = true, -- Text shows up at the end of the line
-  virtual_lines = false, -- Text shows up underneath the line, with virtual lines
-
-  -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
-  jump = { float = true },
-}
+-- DIAGNOSTIC DIAGNOSTIC DEFAULT KICKSTART DIAGNOSTIC STUFF HERE
+-- DIAGNOSTIC DIAGNOSTIC DEFAULT KICKSTART DIAGNOSTIC STUFF HERE
+-- DIAGNOSTIC DIAGNOSTIC DEFAULT KICKSTART DIAGNOSTIC STUFF HERE
+-- DIAGNOSTIC DIAGNOSTIC DEFAULT KICKSTART DIAGNOSTIC STUFF HERE
+-- DIAGNOSTIC DIAGNOSTIC DEFAULT KICKSTART DIAGNOSTIC STUFF HERE
+-- Diagnostic Config & Keymaps See :help vim.diagnostic.Opts
+-- vim.diagnostic.config {
+--   update_in_insert = false,
+--   severity_sort = true,
+--   float = { border = 'rounded', source = 'if_many' },
+--   underline = { severity = { min = vim.diagnostic.severity.WARN } },
+--
+--   -- Can switch between these as you prefer
+--   virtual_text = true, -- Text shows up at the end of the line
+--   virtual_lines = false, -- Text shows up underneath the line, with virtual lines
+--
+--   -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+--   jump = { float = true },
+-- }
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
@@ -127,9 +131,9 @@ vim.keymap.set('n', '<leader>k', '<C-w><C-k>', { desc = 'Move focus to the upper
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 vim.keymap.set('n', '<leader>H', '<C-w>H', { desc = 'Move window to the left' })
-vim.keymap.set('n', '<leader>H', '<C-w>L', { desc = 'Move window to the right' })
-vim.keymap.set('n', '<leader>H', '<C-w>J', { desc = 'Move window to the lower' })
-vim.keymap.set('n', '<leader>H', '<C-w>K', { desc = 'Move window to the upper' })
+vim.keymap.set('n', '<leader>L', '<C-w>L', { desc = 'Move window to the right' })
+vim.keymap.set('n', '<leader>J', '<C-w>J', { desc = 'Move window to the lower' })
+vim.keymap.set('n', '<leader>K', '<C-w>K', { desc = 'Move window to the upper' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -321,6 +325,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>sa', function() require('telescope.builtin').find_files { hidden = true } end, { desc = '[S]earch [A]ll' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set({ 'n', 'v' }, '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -780,7 +785,30 @@ require('lazy').setup({
       --  Check out: https://github.com/nvim-mini/mini.nvim
     end,
   },
-
+  {
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    dependencies = { { 'nvim-mini/mini.icons', opts = {} } },
+    config = function()
+      require('oil').setup()
+      vim.keymap.set('n', '<leader>ef', ':Oil<cr>', { desc = 'Explore [F]iles' })
+    end,
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
+  },
+  {
+    'rachartier/tiny-inline-diagnostic.nvim',
+    event = 'VeryLazy',
+    priority = 1000,
+    config = function()
+      require('tiny-inline-diagnostic').setup()
+      vim.diagnostic.config { virtual_text = false } -- Disable Neovim's default virtual text diagnostics
+    end,
+  },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
@@ -867,6 +895,13 @@ require('lazy').setup({
 
 -- config fr
 
+local tabsize = 4
+vim.opt.tabstop = tabsize -- A hard tabstop is 4 columns wide
+vim.opt.shiftwidth = tabsize -- Indentation commands (>> in Normal mode, autoindent) use 4 spaces
+vim.opt.softtabstop = tabsize -- Pressing Tab or Backspace in Insert mode inserts/removes 4 spaces
+vim.opt.expandtab = true -- Insert spaces when Tab is pressed (instead of a tab character)
+vim.opt.autoindent = true
+
 -- make things transparent
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' }) -- if transparent terminal
 vim.cmd [[
@@ -878,3 +913,5 @@ vim.cmd [[
   highlight FoldColumn guibg=NONE ctermbg=NONE
   highlight EndOfBuffer guibg=NONE ctermbg=NONE
 ]]
+
+vim.keymap.set('n', '<leader>q', ':bd<CR>', { desc = 'Buffer Destroy' })
