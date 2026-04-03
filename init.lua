@@ -173,7 +173,7 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added via a link or github org/name. To run setup automatically, use `opts = {}`
-  { 'NMAC427/guess-indent.nvim', opts = {} },
+  -- { 'NMAC427/guess-indent.nvim', opts = {} },
 
   -- Alternatively, use `config = function() ... end` for full control over the configuration.
   -- If you prefer to call `setup` explicitly, use:
@@ -522,7 +522,18 @@ require('lazy').setup({
         gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
-        jdtls = {},
+        jdtls = {
+          settings = {
+            java = {
+              format = {
+                settings = {
+                  ['org.eclipse.jdt.core.formatter.tabulation.size'] = '2',
+                  ['org.eclipse.jdt.core.formatter.tabulation.char'] = 'space',
+                },
+              },
+            },
+          },
+        },
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
@@ -604,6 +615,7 @@ require('lazy').setup({
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
         local disable_filetypes = { c = true, cpp = true }
+
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
@@ -613,8 +625,22 @@ require('lazy').setup({
           }
         end
       end,
+      -- format_after_save = {
+      --   timeout_ms = 1000,
+      --   lsp_format = 'fallback',
+      -- },
+      -- formatters = {
+      --   gradle_format = {
+      --     -- Use the local gradle wrapper if it exists
+      --     command = './gradlew',
+      --     -- Replace 'spotlessApply' with your specific task (e.g., 'googleJavaFormat')
+      --     args = { 'spotlessApply', '-Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk', '-PspotlessFiles=$FILENAME' },
+      --     stdin = false, -- Gradle tasks usually operate on files directly
+      --   },
+      -- },
       formatters_by_ft = {
         lua = { 'stylua' },
+        java = { 'google-java-format' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -895,7 +921,7 @@ require('lazy').setup({
 
 -- config fr
 
-local tabsize = 4
+local tabsize = 2
 vim.opt.tabstop = tabsize -- A hard tabstop is 4 columns wide
 vim.opt.shiftwidth = tabsize -- Indentation commands (>> in Normal mode, autoindent) use 4 spaces
 vim.opt.softtabstop = tabsize -- Pressing Tab or Backspace in Insert mode inserts/removes 4 spaces
@@ -915,3 +941,4 @@ vim.cmd [[
 ]]
 
 vim.keymap.set('n', '<leader>q', ':bd<CR>', { desc = 'Buffer Destroy' })
+vim.keymap.set('n', '<leader>Jf', ':!./gradlew spotlessApply -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [F]ormat' })
