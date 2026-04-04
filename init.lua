@@ -743,69 +743,40 @@ require('lazy').setup({
     },
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  -- THEMES
+  -- THEMES
+  -- THEMES
+  -- THEMES
+  -- THEMES
+  -- THEMES
+
+  {
     'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      -- vim.cmd.colorscheme 'tokyonight-moon'
-    end,
+    priority = 1000,
   },
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  {
     'ellisonleao/gruvbox.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      -- vim.cmd.colorscheme 'gruvbox'
-    end,
+    priority = 1000,
   },
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'navarasu/onedark.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'onedark'
-    end,
+  {
+    'olimorris/onedarkpro.nvim',
+    priority = 1000,
   },
+  {
+    'rose-pine/neovim',
+    priority = 1000,
+  },
+  {
+    'catppuccin/nvim',
+    priority = 1000,
+  },
+
+  -- THEMES
+  -- THEMES
+  -- THEMES
+  -- THEMES
+  -- THEMES
+  -- THEMES
 
   -- Highlight todo, notes, etc in comments
   {
@@ -970,6 +941,7 @@ vim.opt.softtabstop = tabsize -- Pressing Tab or Backspace in Insert mode insert
 vim.opt.expandtab = true -- Insert spaces when Tab is pressed (instead of a tab character)
 vim.opt.autoindent = true
 
+vim.cmd 'colorscheme catppuccin-nvim'
 -- make things transparent
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' }) -- if transparent terminal
 vim.cmd [[
