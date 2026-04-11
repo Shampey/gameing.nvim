@@ -880,6 +880,17 @@ require('lazy').setup({
       })
     end,
   },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {
+      completions = { lsp = { enabled = true } },
+    },
+  },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -954,5 +965,14 @@ vim.cmd [[
   highlight EndOfBuffer guibg=NONE ctermbg=NONE
 ]]
 
-vim.keymap.set('n', '<leader>q', ':bd<CR>', { desc = 'Buffer Destroy' })
-vim.keymap.set('n', '<leader>Jf', ':!./gradlew spotlessApply -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [F]ormat' })
+vim.keymap.set('n', '<leader>q', ':bd<CR>', { desc = '[B]uffer [D]estroy' })
+
+vim.keymap.set('n', '<leader>Jf', ':te ./gradlew spotlessApply -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [F]ormat' })
+vim.keymap.set('n', '<leader>Js', ':te ./gradlew simulateJava -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [S]imulate' })
+vim.keymap.set(
+  'n',
+  '<leader>Jd',
+  ':te ./gradlew deploy -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk" -PteamNumber=1619 --offline<CR>',
+  { desc = '[J]ava [D]eploy' }
+)
+vim.keymap.set('n', '<leader>Jb', ':te ./gradlew build -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [B]uild' })
