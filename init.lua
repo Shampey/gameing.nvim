@@ -891,15 +891,16 @@ require('lazy').setup({
       completions = { lsp = { enabled = true } },
     },
   },
-  {
-    'goolord/alpha-nvim',
-    -- dependencies = { 'nvim-mini/mini.icons' },
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      local theme = require 'alpha.themes.dashboard'
-      require('alpha').setup(theme.config)
-    end,
-  },
+  -- NOTE: these are cool thats why im doing it but anyway this is a title plugin it lowk didnt work
+  -- {
+  --   'goolord/alpha-nvim',
+  --   -- dependencies = { 'nvim-mini/mini.icons' },
+  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  --   config = function()
+  --     local theme = require 'alpha.themes.dashboard'
+  --     require('alpha').setup(theme.config)
+  --   end,
+  -- },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
