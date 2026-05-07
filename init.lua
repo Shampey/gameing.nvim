@@ -520,7 +520,7 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         gopls = {},
-        -- pyright = {},
+        pyright = {},
         -- rust_analyzer = {},
         jdtls = {
           settings = {
@@ -890,6 +890,15 @@ require('lazy').setup({
     opts = {
       completions = { lsp = { enabled = true } },
     },
+  },
+  {
+    'goolord/alpha-nvim',
+    -- dependencies = { 'nvim-mini/mini.icons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      local theme = require 'alpha.themes.dashboard'
+      require('alpha').setup(theme.config)
+    end,
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
