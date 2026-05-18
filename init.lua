@@ -770,6 +770,18 @@ require('lazy').setup({
     'catppuccin/nvim',
     priority = 1000,
   },
+  {
+    'sainnhe/sonokai',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      -- Optionally configure and load the colorscheme
+      -- vim.g.sonokai_style = 'espresso'
+      -- directly inside the plugin declaration.
+      vim.g.sonokai_enable_italic = true
+      vim.cmd.colorscheme 'sonokai'
+    end,
+  },
 
   -- THEMES
   -- THEMES
@@ -962,7 +974,7 @@ vim.opt.softtabstop = tabsize -- Pressing Tab or Backspace in Insert mode insert
 vim.opt.expandtab = true -- Insert spaces when Tab is pressed (instead of a tab character)
 vim.opt.autoindent = true
 
-vim.cmd 'colorscheme catppuccin-nvim'
+vim.cmd 'colorscheme sonokai'
 -- make things transparent
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' }) -- if transparent terminal
 vim.cmd [[
