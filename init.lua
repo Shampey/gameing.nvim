@@ -779,7 +779,19 @@ require('lazy').setup({
       -- vim.g.sonokai_style = 'espresso'
       -- directly inside the plugin declaration.
       vim.g.sonokai_enable_italic = true
-      vim.cmd.colorscheme 'sonokai'
+      -- vim.cmd.colorscheme 'sonokai'
+    end,
+  },
+  {
+    'loctvl842/monokai-pro.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('monokai-pro').setup {
+        -- transparent_background = true,
+        filter = 'ristretto',
+      }
+      -- vim.cmd.colorscheme("monokai-pro")
     end,
   },
 
@@ -974,18 +986,18 @@ vim.opt.softtabstop = tabsize -- Pressing Tab or Backspace in Insert mode insert
 vim.opt.expandtab = true -- Insert spaces when Tab is pressed (instead of a tab character)
 vim.opt.autoindent = true
 
-vim.cmd 'colorscheme sonokai'
+vim.cmd 'colorscheme monokai-pro-ristretto'
 -- make things transparent
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' }) -- if transparent terminal
-vim.cmd [[
-  highlight Normal guibg=NONE ctermbg=NONE
-  highlight NormalNC guibg=NONE ctermbg=NONE
-  highlight SignColumn guibg=NONE ctermbg=NONE
-  highlight LineNr guibg=NONE ctermbg=NONE
-  highlight CursorLineNr guibg=NONE ctermbg=NONE
-  highlight FoldColumn guibg=NONE ctermbg=NONE
-  highlight EndOfBuffer guibg=NONE ctermbg=NONE
-]]
+-- vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' }) -- if transparent terminal
+-- vim.cmd [[
+--   highlight Normal guibg=NONE ctermbg=NONE
+--   highlight NormalNC guibg=NONE ctermbg=NONE
+--   highlight SignColumn guibg=NONE ctermbg=NONE
+--   highlight LineNr guibg=NONE ctermbg=NONE
+--   highlight CursorLineNr guibg=NONE ctermbg=NONE
+--   highlight FoldColumn guibg=NONE ctermbg=NONE
+--   highlight EndOfBuffer guibg=NONE ctermbg=NONE
+-- ]]
 
 vim.keymap.set('n', '<leader>q', ':bd<CR>', { desc = '[B]uffer [D]estroy' })
 
@@ -998,3 +1010,5 @@ vim.keymap.set(
   { desc = '[J]ava [D]eploy' }
 )
 vim.keymap.set('n', '<leader>Jb', ':te ./gradlew build -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [B]uild' })
+
+vim.g.loaded_matchparen = 0
