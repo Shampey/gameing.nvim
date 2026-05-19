@@ -90,19 +90,19 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- DIAGNOSTIC DIAGNOSTIC DEFAULT KICKSTART DIAGNOSTIC STUFF HERE
 -- DIAGNOSTIC DIAGNOSTIC DEFAULT KICKSTART DIAGNOSTIC STUFF HERE
 -- Diagnostic Config & Keymaps See :help vim.diagnostic.Opts
--- vim.diagnostic.config {
---   update_in_insert = false,
---   severity_sort = true,
---   float = { border = 'rounded', source = 'if_many' },
---   underline = { severity = { min = vim.diagnostic.severity.WARN } },
---
---   -- Can switch between these as you prefer
---   virtual_text = true, -- Text shows up at the end of the line
---   virtual_lines = false, -- Text shows up underneath the line, with virtual lines
---
---   -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
---   jump = { float = true },
--- }
+vim.diagnostic.config {
+  update_in_insert = false,
+  severity_sort = true,
+  float = { border = 'rounded', source = 'if_many' },
+  underline = { severity = { min = vim.diagnostic.severity.WARN } },
+
+  -- Can switch between these as you prefer
+  virtual_text = true, -- Text shows up at the end of the line
+  virtual_lines = false, -- Text shows up underneath the line, with virtual lines
+
+  -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+  jump = { float = true },
+}
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
@@ -834,15 +834,15 @@ require('lazy').setup({
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
+      -- local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+      -- statusline.setup { use_icons = vim.g.have_nerd_font }
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function() return '%2l:%-2v' end
+      -- statusline.section_location = function() return '%2l:%-2v' end
 
       -- ... and there is more!
       --  Check out: https://github.com/nvim-mini/mini.nvim
@@ -863,15 +863,62 @@ require('lazy').setup({
     -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
     lazy = false,
   },
-  {
-    'rachartier/tiny-inline-diagnostic.nvim',
-    event = 'VeryLazy',
-    priority = 1000,
-    config = function()
-      require('tiny-inline-diagnostic').setup()
-      vim.diagnostic.config { virtual_text = false } -- Disable Neovim's default virtual text diagnostics
-    end,
-  },
+  -- {
+  --   'rachartier/tiny-inline-diagnostic.nvim',
+  --   event = 'VeryLazy',
+  --   priority = 1000,
+  --   config = function()
+  --     require('tiny-inline-diagnostic').setup {
+  --       preset = 'simple',
+  --       show_all_diags_on_cursorline = true,
+  --       use_icons_from_diagnostic = true,
+  --       add_messages = {
+  --         messages = true,
+  --       },
+  --       multilines = {
+  --         always_show = true,
+  --       },
+  --     }
+  --     vim.diagnostic.config { virtual_text = false } -- Disable Neovim's default virtual text diagnostics
+  --   end,
+  -- },
+  -- {
+  --   'folke/trouble.nvim',
+  --   opts = {}, -- for default options, refer to the configuration section for custom setup.
+  --   cmd = 'Trouble',
+  --   keys = {
+  --     {
+  --       '<leader>xx',
+  --       '<cmd>Trouble diagnostics toggle<cr>',
+  --       desc = 'Diagnostics (Trouble)',
+  --     },
+  --     {
+  --       '<leader>xX',
+  --       '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
+  --       desc = 'Buffer Diagnostics (Trouble)',
+  --     },
+  --     {
+  --       '<leader>cs',
+  --       '<cmd>Trouble symbols toggle focus=false<cr>',
+  --       desc = 'Symbols (Trouble)',
+  --     },
+  --     {
+  --       '<leader>cl',
+  --       '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+  --       desc = 'LSP Definitions / references / ... (Trouble)',
+  --     },
+  --     {
+  --       '<leader>xL',
+  --       '<cmd>Trouble loclist toggle<cr>',
+  --       desc = 'Location List (Trouble)',
+  --     },
+  --     {
+  --       '<leader>xQ',
+  --       '<cmd>Trouble qflist toggle<cr>',
+  --       desc = 'Quickfix List (Trouble)',
+  --     },
+  --   },
+  -- },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
@@ -986,6 +1033,8 @@ vim.opt.softtabstop = tabsize -- Pressing Tab or Backspace in Insert mode insert
 vim.opt.expandtab = true -- Insert spaces when Tab is pressed (instead of a tab character)
 vim.opt.autoindent = true
 
+vim.opt.laststatus = 0
+
 vim.cmd 'colorscheme monokai-pro-ristretto'
 -- make things transparent
 -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' }) -- if transparent terminal
@@ -1010,5 +1059,3 @@ vim.keymap.set(
   { desc = '[J]ava [D]eploy' }
 )
 vim.keymap.set('n', '<leader>Jb', ':te ./gradlew build -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [B]uild' })
-
-vim.g.loaded_matchparen = 0
