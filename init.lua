@@ -928,6 +928,16 @@ require('lazy').setup({
     config = function()
       local parsers = { 'bash', 'c', 'diff', 'java', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
       require('nvim-treesitter').install(parsers)
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        pattern = '*',
+        callback = function()
+          local bracket_color = '#939293'
+          vim.api.nvim_set_hl(0, '@punctuation.bracket', { fg = bracket_color })
+          vim.api.nvim_set_hl(0, '@punctuation.special', { fg = bracket_color })
+          vim.api.nvim_set_hl(0, '@constructor.lua', { fg = bracket_color })
+        end,
+      })
+
       vim.api.nvim_create_autocmd('FileType', {
         callback = function(args)
           local buf, filetype = args.buf, args.match
