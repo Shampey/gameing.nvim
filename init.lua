@@ -972,6 +972,10 @@ require('lazy').setup({
       completions = { lsp = { enabled = true } },
     },
   },
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
   -- NOTE: these are cool thats why im doing it but anyway this is a title plugin it lowk didnt work
   -- {
   --   'goolord/alpha-nvim',
@@ -1035,6 +1039,28 @@ require('lazy').setup({
 -- vim: ts=2 sts=2 sw=2 et
 
 -- config fr
+--
+--
+--
+
+require('lualine').setup {
+  sections = {
+    lualine_a = { { 'mode', color = { gui = 'bold' } } },
+    lualine_b = { 'diff', 'diagnostics' },
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = { 'filetype' },
+    lualine_z = { 'location' },
+  },
+  tabline = {
+    lualine_a = { 'buffers' },
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {},
+  },
+}
 
 local tabsize = 2
 vim.opt.tabstop = tabsize -- A hard tabstop is 4 columns wide
@@ -1059,6 +1085,11 @@ vim.cmd 'colorscheme monokai-pro-ristretto'
 -- ]]
 
 vim.keymap.set('n', '<leader>q', ':bd<CR>', { desc = '[B]uffer [D]estroy' })
+vim.keymap.set('n', '<leader>bj', function()
+  vim.ui.input({ prompt = 'Enter Buffer #: ' }, function(input)
+    if input then vim.cmd(':LualineBuffersJump! ' .. input) end
+  end)
+end, { desc = '[B]uffer [J]ump' })
 
 vim.keymap.set('n', '<leader>Jf', ':te ./gradlew spotlessApply -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [F]ormat' })
 vim.keymap.set('n', '<leader>Js', ':te ./gradlew simulateJava -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [S]imulate' })
