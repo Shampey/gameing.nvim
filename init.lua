@@ -1042,7 +1042,7 @@ require('lazy').setup({
 --
 --
 --
-
+--
 require('lualine').setup {
   sections = {
     lualine_a = { { 'mode', color = { gui = 'bold' } } },
@@ -1053,7 +1053,7 @@ require('lualine').setup {
     lualine_z = { 'location' },
   },
   tabline = {
-    lualine_a = { 'buffers' },
+    lualine_a = { { 'buffers', symbols = { alternate_file = '' } } },
     lualine_b = {},
     lualine_c = {},
     lualine_x = {},
@@ -1090,6 +1090,16 @@ vim.keymap.set('n', '<leader>bj', function()
     if input then vim.cmd(':LualineBuffersJump! ' .. input) end
   end)
 end, { desc = '[B]uffer [J]ump' })
+vim.keymap.set('n', '<leader>1', ':LualineBuffersJump! 1', { desc = 'Jump To Buffer 1' })
+vim.keymap.set('n', '<leader>2', ':LualineBuffersJump! 2', { desc = 'Jump To Buffer 2' })
+vim.keymap.set('n', '<leader>3', ':LualineBuffersJump! 3', { desc = 'Jump To Buffer 3' })
+vim.keymap.set('n', '<leader>4', ':LualineBuffersJump! 4', { desc = 'Jump To Buffer 4' })
+vim.keymap.set('n', '<leader>5', ':LualineBuffersJump! 5', { desc = 'Jump To Buffer 5' })
+vim.keymap.set('n', '<leader>6', ':LualineBuffersJump! 6', { desc = 'Jump To Buffer 6' })
+vim.keymap.set('n', '<leader>7', ':LualineBuffersJump! 7', { desc = 'Jump To Buffer 7' })
+vim.keymap.set('n', '<leader>8', ':LualineBuffersJump! 8', { desc = 'Jump To Buffer 8' })
+vim.keymap.set('n', '<leader>9', ':LualineBuffersJump! 9', { desc = 'Jump To Buffer 9' })
+vim.keymap.set('n', '<leader>0', ':LualineBuffersJump! 10', { desc = 'Jump To Buffer 0' })
 
 vim.keymap.set('n', '<leader>Jf', ':te ./gradlew spotlessApply -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [F]ormat' })
 vim.keymap.set('n', '<leader>Js', ':te ./gradlew simulateJava -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [S]imulate' })
