@@ -305,7 +305,11 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
+        defaults = {
+          file_ignore_patterns = {
+            '%.class',
+          },
+        },
         --   mappings = {
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
@@ -522,18 +526,6 @@ require('lazy').setup({
         gopls = {},
         pyright = {},
         -- rust_analyzer = {},
-        jdtls = {
-          settings = {
-            java = {
-              format = {
-                settings = {
-                  ['org.eclipse.jdt.core.formatter.tabulation.size'] = '2',
-                  ['org.eclipse.jdt.core.formatter.tabulation.char'] = 'space',
-                },
-              },
-            },
-          },
-        },
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
@@ -594,6 +586,7 @@ require('lazy').setup({
     end,
   },
 
+  { 'https://github.com/mfussenegger/nvim-jdtls' },
   { -- Autoformat
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
@@ -749,6 +742,10 @@ require('lazy').setup({
   -- THEMES
   -- THEMES
   -- THEMES
+  {
+    'RRethy/base16-nvim',
+    priority = 1000,
+  },
 
   {
     'folke/tokyonight.nvim',
@@ -759,8 +756,21 @@ require('lazy').setup({
     priority = 1000,
   },
   {
-    'olimorris/onedarkpro.nvim',
+    'nkxxll/ghostty-default-style-dark.nvim',
+    lazy = false,
     priority = 1000,
+    config = function() require('ghostty-default-style-dark').setup {} end,
+  },
+  { 'projekt0n/github-nvim-theme', name = 'github-theme' },
+  {
+    'navarasu/onedark.nvim',
+    priority = 1000,
+    config = function()
+      require('onedark').setup {
+        style = 'warm',
+      }
+      require('onedark').load()
+    end,
   },
   {
     'rose-pine/neovim',
@@ -1062,7 +1072,7 @@ require('lualine').setup {
   },
 }
 
-local tabsize = 2
+local tabsize = 4
 vim.opt.tabstop = tabsize -- A hard tabstop is 4 columns wide
 vim.opt.shiftwidth = tabsize -- Indentation commands (>> in Normal mode, autoindent) use 4 spaces
 vim.opt.softtabstop = tabsize -- Pressing Tab or Backspace in Insert mode inserts/removes 4 spaces
@@ -1071,7 +1081,8 @@ vim.opt.autoindent = true
 
 vim.opt.laststatus = 0
 
-vim.cmd 'colorscheme monokai-pro-ristretto'
+-- vim.cmd 'colorscheme monokai-pro-ristretto'
+vim.cmd 'colorscheme base16-gruvbox-dark-hard'
 -- make things transparent
 -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' }) -- if transparent terminal
 -- vim.cmd [[
