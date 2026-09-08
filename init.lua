@@ -172,6 +172,7 @@ rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  { import = 'custom.plugins' },
   -- NOTE: Plugins can be added via a link or github org/name. To run setup automatically, use `opts = {}`
   -- { 'NMAC427/guess-indent.nvim', opts = {} },
 
@@ -1081,21 +1082,26 @@ vim.opt.autoindent = true
 
 vim.opt.laststatus = 0
 
+vim.g.python3_host_prog = vim.fn.exepath 'python3'
+
 -- vim.cmd 'colorscheme monokai-pro-ristretto'
-vim.cmd 'colorscheme base16-gruvbox-dark-hard'
+-- vim.cmd 'colorscheme base16-gruvbox-dark-hard'
+vim.cmd 'colorscheme synced'
 -- make things transparent
--- vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' }) -- if transparent terminal
--- vim.cmd [[
---   highlight Normal guibg=NONE ctermbg=NONE
---   highlight NormalNC guibg=NONE ctermbg=NONE
---   highlight SignColumn guibg=NONE ctermbg=NONE
---   highlight LineNr guibg=NONE ctermbg=NONE
---   highlight CursorLineNr guibg=NONE ctermbg=NONE
---   highlight FoldColumn guibg=NONE ctermbg=NONE
---   highlight EndOfBuffer guibg=NONE ctermbg=NONE
--- ]]
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' }) -- if transparent terminal
+vim.cmd [[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NormalNC guibg=NONE ctermbg=NONE
+  highlight SignColumn guibg=NONE ctermbg=NONE
+  highlight LineNr guibg=NONE ctermbg=NONE
+  highlight CursorLineNr guibg=NONE ctermbg=NONE
+  highlight FoldColumn guibg=NONE ctermbg=NONE
+  highlight EndOfBuffer guibg=NONE ctermbg=NONE
+]]
 
 vim.keymap.set('n', '<leader>q', ':bd<CR>', { desc = '[B]uffer [D]estroy' })
+
+-- BUFFER JUMP BINDINGS --
 vim.keymap.set('n', '<leader>bj', function()
   vim.ui.input({ prompt = 'Enter Buffer #: ' }, function(input)
     if input then vim.cmd(':LualineBuffersJump! ' .. input) end
@@ -1112,6 +1118,7 @@ vim.keymap.set('n', '<leader>8', ':LualineBuffersJump! 8<CR>', { desc = 'Jump To
 vim.keymap.set('n', '<leader>9', ':LualineBuffersJump! 9<CR>', { desc = 'Jump To Buffer 9' })
 vim.keymap.set('n', '<leader>0', ':LualineBuffersJump! 10<CR>', { desc = 'Jump To Buffer 0' })
 
+-- FRC KEYBINDS --
 vim.keymap.set('n', '<leader>Jf', ':te ./gradlew spotlessApply -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [F]ormat' })
 vim.keymap.set('n', '<leader>Js', ':te ./gradlew simulateJava -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [S]imulate' })
 vim.keymap.set(
@@ -1121,3 +1128,13 @@ vim.keymap.set(
   { desc = '[J]ava [D]eploy' }
 )
 vim.keymap.set('n', '<leader>Jb', ':te ./gradlew build -Dorg.gradle.java.home="/Users/wilde/wpilib/2026/jdk"<CR>', { desc = '[J]ava [B]uild' })
+
+-- MOLTEN KEYBINDS --
+vim.keymap.set('n', '<leader>mi', ':MoltenInit<CR>', { desc = 'Initialize Molten kernel' })
+vim.keymap.set('n', '<leader>me', ':MoltenEvaluateOperator<CR>', { desc = 'Evaluate operator' })
+vim.keymap.set('n', '<leader>ml', ':MoltenEvaluateLine<CR>', { desc = 'Evaluate line' })
+vim.keymap.set('v', '<leader>mv', ':<C-u>MoltenEvaluateVisual<CR>gv', { desc = 'Evaluate visual selection' })
+vim.keymap.set('n', '<leader>mr', ':MoltenReevaluateCell<CR>', { desc = 'Re-evaluate cell' })
+vim.keymap.set('n', '<leader>mos', ':noautocmd MoltenEnterOutput<CR>', { desc = 'Open output window' })
+vim.keymap.set('n', '<leader>moh', ':MoltenHideOutput<CR>', { desc = 'Hide output' })
+vim.keymap.set('n', '<leader>md', ':MoltenDelete<CR>', { desc = 'Delete cell' })
