@@ -1084,9 +1084,8 @@ vim.opt.laststatus = 0
 
 vim.g.python3_host_prog = vim.fn.exepath 'python3'
 
--- vim.cmd 'colorscheme monokai-pro-ristretto'
+vim.cmd 'colorscheme monokai-pro-light'
 -- vim.cmd 'colorscheme base16-gruvbox-dark-hard'
-vim.cmd 'colorscheme synced'
 -- make things transparent
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' }) -- if transparent terminal
 vim.cmd [[
