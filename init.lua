@@ -747,6 +747,10 @@ require('lazy').setup({
     'RRethy/base16-nvim',
     priority = 1000,
   },
+  {
+    'mcncl/alabaster.nvim',
+    priority = 1000,
+  },
 
   {
     'folke/tokyonight.nvim',
@@ -1073,7 +1077,7 @@ require('lualine').setup {
   },
 }
 
-local tabsize = 4
+local tabsize = 2
 vim.opt.tabstop = tabsize -- A hard tabstop is 4 columns wide
 vim.opt.shiftwidth = tabsize -- Indentation commands (>> in Normal mode, autoindent) use 4 spaces
 vim.opt.softtabstop = tabsize -- Pressing Tab or Backspace in Insert mode inserts/removes 4 spaces
@@ -1084,7 +1088,7 @@ vim.opt.laststatus = 0
 
 vim.g.python3_host_prog = vim.fn.exepath 'python3'
 
-vim.cmd 'colorscheme monokai-pro-light'
+vim.cmd 'colorscheme alabaster'
 -- vim.cmd 'colorscheme base16-gruvbox-dark-hard'
 -- make things transparent
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' }) -- if transparent terminal
