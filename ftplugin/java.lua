@@ -94,8 +94,10 @@ local config = {
     vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, opts)
 
     -- nvim-jdtls specific extras
-    jdtls.setup_dap { hotcodereplace = 'auto' }
-    require('jdtls.dap').setup_dap_main_class_configs()
+    if pcall(require, 'dap') then
+      jdtls.setup_dap { hotcodereplace = 'auto' }
+      require('jdtls.dap').setup_dap_main_class_configs()
+    end
 
     vim.keymap.set('n', '<leader>jo', jdtls.organize_imports, opts)
     vim.keymap.set('n', '<leader>jt', jdtls.test_class, opts)
